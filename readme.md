@@ -1,0 +1,2 @@
+# radiko_manager_V2
+radiko_managerを久々に触ろうと思ったら今の自分から見るとなかなかにひどかったので作り直すことにした
