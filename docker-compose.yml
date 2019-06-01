@@ -1,0 +1,43 @@
+version: '3.4'
+
+volumes:
+  radiko_manager.db.volume:
+    name: radiko_manager.db.volume
+
+services:
+  app:
+    build: ./django
+    command: uwsgi --ini /src/radiko_manager/radiko_manager.ini
+    volumes:
+      - ./src:/src
+      - ./static:/static
+    expose:
+      - "8001"
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.3
+    container_name: radiko_manager.db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: $RADIKO_MANAGER_DATABASE_ROOT_PASSWORD
+      MYSQL_USER: radiko_manager
+      MYSQL_PASSWORD: $RADIKO_MANAGER_DATABASE_PASSWORD
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - radiko_manager.db.volume:/var/lib/mysql
+      - ./mariadb:/docker-entrypoint-initdb.d
+
+  nginx:
+    image: nginx:1.16.0
+    container_name: radiko_manager.nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./static:/static
+    depends_on:
+      - app
