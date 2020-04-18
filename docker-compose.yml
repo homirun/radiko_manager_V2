@@ -7,17 +7,19 @@ volumes:
 services:
   app:
     build: ./django
-    command: uwsgi --ini /src/radiko_manager/radiko_manager.ini
+    command: uwsgi --ini /src/radiko_manager/radiko_manager/radiko_manager.ini
     volumes:
       - ./src:/src
       - ./static:/static
     expose:
       - "8001"
+      - "8002"
     depends_on:
       - db
+    # stdin_open: true
 
   db:
-    image: mariadb:10.3
+    image: mariadb:10.4
     container_name: radiko_manager.db
     ports:
       - "3307:3306"
@@ -31,10 +33,11 @@ services:
       - ./mariadb:/docker-entrypoint-initdb.d
 
   nginx:
-    image: nginx:1.16.0
+    image: nginx:1.17
     container_name: radiko_manager.nginx
     ports:
       - "8000:8000"
+      - "8080:8080"
     volumes:
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./nginx/conf:/etc/nginx/conf.d
