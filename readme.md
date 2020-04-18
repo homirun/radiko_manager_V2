@@ -7,5 +7,5 @@ radiko_managerを久々に触ろうと思ったら今の自分から見るとな
 1. ```cd /src/vue-client```
 1. ```npm run serve```
 
-frontend: localhost:8000
+frontend: localhost:8000  
 backend: localhost:8080
