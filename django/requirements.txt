@@ -3,3 +3,5 @@ uwsgi==2.0.18
 pysnooper==0.3.0
 python-dotenv==0.13
 mysqlclient==1.4.6
+djangorestframework==3.11
+django-cors-headers==3.2
