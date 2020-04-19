@@ -5,3 +5,4 @@ python-dotenv==0.13
 mysqlclient==1.4.6
 djangorestframework==3.11
 django-cors-headers==3.2
+djangorestframework-jwt==1.11

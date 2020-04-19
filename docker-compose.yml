@@ -10,7 +10,6 @@ services:
     command: uwsgi --ini /src/radiko_manager/radiko_manager/radiko_manager.ini
     volumes:
       - ./src:/src
-      - ./static:/static
     expose:
       - "8001"
       - "8002"
@@ -41,6 +40,6 @@ services:
     volumes:
       - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
       - ./nginx/conf:/etc/nginx/conf.d
-      - ./static:/static
+      - ./src/radiko_manager/static:/static
     depends_on:
       - app
